@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Resultados de Inventario</title>
+</h:head>
+<h:body>
+    <h2>Tabla de Datos Calculados (Existencia > 0)</h2>
+    
+    <h:dataTable value="#{inventario.productosVisibles}" var="prod" border="1" cellpadding="5" style="border-collapse: collapse; text-align: center;">
+        <h:column>
+            <f:facet name="header">Producto</f:facet>
+            #{prod.descripcion}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Existencia</f:facet>
+            #{prod.existencia}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Precio</f:facet>
+            $#{prod.precio}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Valor</f:facet>
+            <h:outputText value="$#{prod.valor}" style="color: blue; font-weight: bold;" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">Controles Capturados</f:facet>
+            Cat: #{prod.categoria} | Prov: #{prod.proveedor} | Imp: #{prod.importado ? 'Sí' : 'No'}
+        </h:column>
+    </h:dataTable>
+    
+    <br/>
+    <!-- Este botón es opcional, sirve para cerrar la pestaña actual si el usuario lo desea, mediante JavaScript -->
+    <button onclick="window.close()">Cerrar Resultados</button>
+
+</h:body>
+</html>

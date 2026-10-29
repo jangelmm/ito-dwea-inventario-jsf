@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Captura de Inventario</title>
+</h:head>
+<h:body>
+    <h2>Captura de Nuevo Producto</h2>
+    
+    <!-- Se eliminan las viñetas por defecto para que los errores se vean más limpios -->
+    <h:messages style="color: red; list-style-type: none; padding: 0; font-weight: bold;" />
+    
+    <h:form target="_blank">
+        <h:panelGrid columns="2" cellpadding="5" border="1" style="border-collapse: collapse;">
+            
+            <h:outputLabel value="Descripción:" />
+            <h:inputText value="#{inventario.nuevoProducto.descripcion}" required="true" requiredMessage="- Descripción requerida" />
+            
+            <h:outputLabel value="Existencia (Restricción >= 0):" />
+            <h:inputText value="#{inventario.nuevoProducto.existencia}" required="true" requiredMessage="- Existencia requerida" validatorMessage="- La existencia no puede ser negativa">
+                <f:validateDoubleRange minimum="0.0" />
+            </h:inputText>
+            
+            <h:outputLabel value="Precio:" />
+            <h:inputText value="#{inventario.nuevoProducto.precio}" required="true" requiredMessage="- Precio requerido" validatorMessage="- El precio debe ser de al menos 0.1">
+                <f:validateDoubleRange minimum="0.1" />
+            </h:inputText>
+
+            <h:outputLabel value="Categoría:" />
+            <h:selectOneRadio value="#{inventario.nuevoProducto.categoria}" required="true" requiredMessage="- Selecciona categoría obligatoriamente">
+                <f:selectItem itemValue="Nacional" itemLabel="Nacional" />
+                <f:selectItem itemValue="Extranjero" itemLabel="Extranjero" />
+            </h:selectOneRadio>
+
+            <h:outputLabel value="Proveedor:" />
+            <h:selectOneMenu value="#{inventario.nuevoProducto.proveedor}">
+                <f:selectItem itemValue="Proveedor Local" itemLabel="Proveedor Local" />
+                <f:selectItem itemValue="Proveedor Mayorista" itemLabel="Proveedor Mayorista" />
+            </h:selectOneMenu>
+
+            <h:outputLabel value="¿Es Importado?" />
+            <h:selectBooleanCheckbox value="#{inventario.nuevoProducto.importado}" />
+
+            <!-- Facet footer fusiona la fila inferior y centra el botón perfectamente -->
+            <f:facet name="footer">
+                <div style="text-align: center; margin-top: 10px;">
+                    <h:commandButton value="Guardar Producto" action="#{inventario.agregarProducto}" />
+                </div>
+            </f:facet>
+            
+        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
